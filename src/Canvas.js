@@ -12,6 +12,7 @@ class Canvas extends React.Component {
         }
         this.randomSpot = this.randomSpot.bind(this);
         this.uniformSpots = this.uniformSpots.bind(this);
+        this.analyticSpots = this.analyticSpots.bind(this);
     }
     componentDidMount() {
         this.worker = new WebWorker(worker);
@@ -27,11 +28,18 @@ class Canvas extends React.Component {
                 efficiency: data.efficiency,
                 numCircles: data.circles.length
             })
+
+            this.clearCanvas(this.state.ctx,this.props.width,this.props.height);
             data.circles.forEach(circle => {
                 this.drawCircle(this.state.ctx,circle.x, circle.y, this.props.radius);
             });
             
         });
+    }
+    componentDidUpdate(prevProps){
+        if(prevProps.width !== this.props.width || prevProps.height !== this.props.height || prevProps.radius !== this.props.radius){
+            this.uniformSpots();
+        }
     }
 
     randomSpot(){
@@ -52,7 +60,19 @@ class Canvas extends React.Component {
         }
         this.worker.postMessage(dimensions);
     }
-
+    analyticSpots(){
+        let dimensions = {
+            type: 'analytic',
+            x:this.props.width, 
+            y:this.props.height, 
+            radius:this.props.radius
+        }
+        this.worker.postMessage(dimensions);
+    }
+    clearCanvas(ctx,x ,y){
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(0,0,x,y);
+    }
     drawCircle(ctx,x,y,r){
         ctx.beginPath();
         ctx.arc(x, y, r, 0, 2 * Math.PI);
@@ -69,6 +89,9 @@ class Canvas extends React.Component {
             </Button>
             <Button onClick={this.uniformSpots}>
                 Uniform
+            </Button>
+            <Button onClick={this.analyticSpots}>
+                Analytic
             </Button>
             <canvas ref="canvas" width={this.props.width} height={this.props.height} style={{border:'2px solid black'}} />
           </div>

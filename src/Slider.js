@@ -36,7 +36,8 @@ export default function ContinuousSlider(props) {
           onChange={handleChange} 
           aria-labelledby="continuous-slider"
           valueLabelDisplay="auto"
-          max ={props.max} />
+          max ={props.max}
+          min={props.min} />
         </Grid>
         <Grid item>
         </Grid>
