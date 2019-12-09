@@ -8,7 +8,7 @@ class Canvas extends React.Component {
         super(props);
         this.state = {
             ctx: null,
-            circles: []
+            // circles: []
         }
         this.randomSpot = this.randomSpot.bind(this);
         this.uniformSpots = this.uniformSpots.bind(this);
@@ -20,10 +20,21 @@ class Canvas extends React.Component {
         this.setState({
             ctx: ctx
         });
+        this.worker.addEventListener('message', e => {
+            let data = e.data;
+            this.setState({
+                // circles: [... e.data.circles],
+                performance: data.performance,
+                efficiency: data.efficiency,
+            })
+            data.circles.forEach(circle => {
+                this.drawCircle(this.state.ctx,circle.x, circle.y, this.props.radius);
+            });
+            
+        });
     }
     componentDidUpdate(){
         //this.drawCircle(this.state.ctx,this.props.radius,this.props.radius, this.props.radius);
-
     }
     randomSpot(){
         let dimensions = {
@@ -33,16 +44,6 @@ class Canvas extends React.Component {
             radius:this.props.radius
         }
         this.worker.postMessage(dimensions);
-        
-        this.worker.addEventListener('message', e => {
-            let circles = e.data;
-            this.setState({
-                circles: [... e.data]
-            })
-            circles.forEach(circle => {
-                this.drawCircle(this.state.ctx,circle.x, circle.y, this.props.radius);
-            });
-        });
     }
     uniformSpots(){
         let dimensions = {
@@ -52,17 +53,8 @@ class Canvas extends React.Component {
             radius:this.props.radius
         }
         this.worker.postMessage(dimensions);
-        
-        this.worker.addEventListener('message', e => {
-            let circles = e.data;
-            this.setState({
-                circles: [... e.data]
-            })
-            circles.forEach(circle => {
-                this.drawCircle(this.state.ctx,circle.x, circle.y, this.props.radius);
-            });
-        });
     }
+
     drawCircle(ctx,x,y,r){
         ctx.beginPath();
         ctx.arc(x, y, r, 0, 2 * Math.PI);

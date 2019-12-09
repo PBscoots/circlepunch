@@ -47,11 +47,21 @@ function App() {
           </Grid>
           <Grid item xs={6} sm={3}>
             <Paper className={classes.paper}>
-              Estimates: FittingX: {Math.floor(canvasWidth / (circleRadius *2))} Fitting Y: {Math.floor(canvasHeight / (circleRadius *2))}
+              <div>
+                Estimates: FittingX: {Math.floor(canvasWidth / (circleRadius *2))} Fitting Y: {Math.floor(canvasHeight / (circleRadius *2))}
+              </div>
+              <div>
+                # of circles: 
+              </div>
+              <div>
+                Efficiency: (Area square/Area circles):
+              </div>
             </Paper>
           </Grid>
         </Grid>
-        <Canvas width={canvasWidth} height={canvasHeight} radius={circleRadius}/>
+        <Grid container spacing= {12} justify='center'>
+          <Canvas width={canvasWidth} height={canvasHeight} radius={circleRadius}/>
+        </Grid>
       </div>
     </div>
   );
