@@ -22,10 +22,10 @@ class Canvas extends React.Component {
         });
         this.worker.addEventListener('message', e => {
             let data = e.data;
-            this.setState({
-                // circles: [... e.data.circles],
+            this.props.setMetrics({
                 performance: data.performance,
                 efficiency: data.efficiency,
+                numCircles: data.circles.length
             })
             data.circles.forEach(circle => {
                 this.drawCircle(this.state.ctx,circle.x, circle.y, this.props.radius);
@@ -33,9 +33,7 @@ class Canvas extends React.Component {
             
         });
     }
-    componentDidUpdate(){
-        //this.drawCircle(this.state.ctx,this.props.radius,this.props.radius, this.props.radius);
-    }
+
     randomSpot(){
         let dimensions = {
             type: 'random',
