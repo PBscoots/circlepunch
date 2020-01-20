@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/circlepunch/static/css/main.023116ab.chunk.css",
+    "main.js": "/circlepunch/static/js/main.71a15155.chunk.js",
+    "main.js.map": "/circlepunch/static/js/main.71a15155.chunk.js.map",
+    "runtime-main.js": "/circlepunch/static/js/runtime-main.2fcd1682.js",
+    "runtime-main.js.map": "/circlepunch/static/js/runtime-main.2fcd1682.js.map",
+    "static/js/2.1d3c51a7.chunk.js": "/circlepunch/static/js/2.1d3c51a7.chunk.js",
+    "static/js/2.1d3c51a7.chunk.js.map": "/circlepunch/static/js/2.1d3c51a7.chunk.js.map",
+    "index.html": "/circlepunch/index.html",
+    "precache-manifest.57c547899cca5056ae7805585df362d1.js": "/circlepunch/precache-manifest.57c547899cca5056ae7805585df362d1.js",
+    "service-worker.js": "/circlepunch/service-worker.js",
+    "static/css/main.023116ab.chunk.css.map": "/circlepunch/static/css/main.023116ab.chunk.css.map",
+    "static/media/logo.svg": "/circlepunch/static/media/logo.25bf045c.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.2fcd1682.js",
+    "static/js/2.1d3c51a7.chunk.js",
+    "static/css/main.023116ab.chunk.css",
+    "static/js/main.71a15155.chunk.js"
+  ]
+}
