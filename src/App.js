@@ -53,12 +53,12 @@ function App() {
             </Grid>
             <Grid item >
               <Paper className={classes.paper}>
-                <ContinuousSlider max={1700} min={50} callback={setWidth} label ='X distance'/>
+                <ContinuousSlider max={1250} min={50} callback={setWidth} label ='X distance'/>
               </Paper>
             </Grid>
             <Grid item >
               <Paper className={classes.paper}>
-                <ContinuousSlider max={900} min={50} callback={setHeight} label = 'Y Distance'/> 
+                <ContinuousSlider max={675} min={50} callback={setHeight} label = 'Y Distance'/> 
               </Paper>
             </Grid>
             <Grid item >
@@ -71,6 +71,8 @@ function App() {
             <Canvas 
               width={canvasWidth} 
               height={canvasHeight} 
+              windowwidth={1250}
+              windowheight={675}
               radius={circleRadius} 
               setMetrics={setMetrics}/>
           </Grid>

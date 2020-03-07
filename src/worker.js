@@ -23,7 +23,7 @@ export default () => {
       let t0 = performance.now();
 
       if (dimensions.type === 'random') {
-        for (let i = 0; i < 10000; i++) {
+        for (let i = 0; i < 20000; i++) {
           let circle = {
             x: null,
             y: null,

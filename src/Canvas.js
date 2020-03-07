@@ -13,11 +13,13 @@ class Canvas extends React.Component {
         this.randomSpot = this.randomSpot.bind(this);
         this.uniformSpots = this.uniformSpots.bind(this);
         this.analyticSpots = this.analyticSpots.bind(this);
+        this.drawAll = this.drawAll.bind(this);
     }
     componentDidMount() {
         this.worker = new WebWorker(worker);
         const canvas = this.refs.canvas;
         const ctx = canvas.getContext("2d");
+        const reqAniFrame = requestAnimationFrame;
         this.setState({
             ctx: ctx
         });
@@ -28,18 +30,21 @@ class Canvas extends React.Component {
                 efficiency: data.efficiency,
                 numCircles: data.circles.length
             })
-
-            this.clearCanvas(this.state.ctx,this.props.width,this.props.height);
-            data.circles.forEach(circle => {
-                this.drawCircle(this.state.ctx,circle.x, circle.y, this.props.radius);
-            });
+            // requestAnimationFrame(this.drawAll(data));
+            this.drawAll(data);
+            // this.clearCanvas(this.state.ctx,this.props.width,this.props.height);
+            // data.circles.forEach(circle => {
+            //     this.drawCircle(this.state.ctx,circle.x, circle.y, this.props.radius);
+            // });
             
         });
     }
     componentDidUpdate(prevProps){
         if(prevProps.width !== this.props.width || prevProps.height !== this.props.height || prevProps.radius !== this.props.radius){
-            this.uniformSpots();
+            
+            this.analyticSpots();
         }
+        
     }
 
     randomSpot(){
@@ -69,6 +74,13 @@ class Canvas extends React.Component {
         }
         this.worker.postMessage(dimensions);
     }
+    drawAll(data){
+        this.clearCanvas(this.state.ctx,this.props.windowwidth,this.props.windowheight);
+        this.drawRect(this.state.ctx, 0, 0, this.props.width, this.props.height);
+        data.circles.forEach(circle => {
+            this.drawCircle(this.state.ctx,circle.x, circle.y, this.props.radius);
+        });
+    }
     clearCanvas(ctx,x ,y){
         ctx.fillStyle = '#FFFFFF';
         ctx.fillRect(0,0,x,y);
@@ -79,6 +91,10 @@ class Canvas extends React.Component {
         ctx.fillStyle = "#FF000F";
         ctx.fill();
         ctx.stroke();
+    }
+    drawRect(ctx,x,y,w,h){
+        ctx.fillStyle= '#e5eaf3';
+        ctx.fillRect(x,y,w,h);
     }
     
     render() {
@@ -91,9 +107,9 @@ class Canvas extends React.Component {
                 Uniform
             </Button>
             <Button onClick={this.analyticSpots}>
-                Analytic
+                Geometric Sweep
             </Button>
-            <canvas ref="canvas" width={this.props.width} height={this.props.height} style={{border:'2px solid black'}} />
+            <canvas ref="canvas" width={this.props.windowwidth} height={this.props.windowheight} style={{border:'2px solid black'}} />
           </div>
         )
       }
