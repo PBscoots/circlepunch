@@ -26,41 +26,56 @@ function App() {
   const [canvasWidth, setWidth] = useState(500);
   const [canvasHeight, setHeight] = useState(500);
   const [circleRadius, setRadius] = useState(30);
+  const [theta, setTheta] = useState(0);
+  const [beta, setBeta] = useState(0);
+  const [metrics, setMetrics] = useState({});
+
   return (
     <div className="App">
       <div className={classes.root}>
-        <Grid container spacing={3} justify = 'center'>
-          <Grid item xs={6} sm={3}>
-            <Paper className={classes.paper}>
-              <ContinuousSlider max={1700} callback={setWidth} label ='X distance'/>
-            </Paper>
+        <Grid container direction='rows'>
+          <Grid container xs={2} spacing={3} justify = 'center' direction='column'>
+            <Grid item >
+              <Paper className={classes.paper}>
+                <div>
+                  Estimates: FittingX: {Math.floor(canvasWidth / (circleRadius *2))} Fitting Y: {Math.floor(canvasHeight / (circleRadius *2))}
+                </div>
+                <div>
+                  # of circles: {metrics.numCircles}
+                </div>
+                <div>
+                  Performance time (ms): {metrics.performance}
+                </div>
+                <div>
+                  Efficiency: (Area circles/Area square): <strong>{metrics.efficiency * 100}</strong>
+                </div>
+              </Paper>
+            </Grid>
+            <Grid item >
+              <Paper className={classes.paper}>
+                <ContinuousSlider max={1250} min={50} callback={setWidth} label ='X distance'/>
+              </Paper>
+            </Grid>
+            <Grid item >
+              <Paper className={classes.paper}>
+                <ContinuousSlider max={675} min={50} callback={setHeight} label = 'Y Distance'/> 
+              </Paper>
+            </Grid>
+            <Grid item >
+              <Paper className={classes.paper}>
+                <ContinuousSlider  max={100} min={5} callback={setRadius} label = 'Radius'/>
+              </Paper>
+            </Grid>
           </Grid>
-          <Grid item xs={6} sm={3}>
-            <Paper className={classes.paper}>
-              <ContinuousSlider max={900} callback={setHeight} label = 'Y Distance'/> 
-            </Paper>
+          <Grid container xs={10} justify='center'>
+            <Canvas 
+              width={canvasWidth} 
+              height={canvasHeight} 
+              windowwidth={1250}
+              windowheight={675}
+              radius={circleRadius} 
+              setMetrics={setMetrics}/>
           </Grid>
-          <Grid item xs={6} sm={3}>
-            <Paper className={classes.paper}>
-              <ContinuousSlider max={100} callback={setRadius} label = 'Radius'/>
-            </Paper>
-          </Grid>
-          <Grid item xs={6} sm={3}>
-            <Paper className={classes.paper}>
-              <div>
-                Estimates: FittingX: {Math.floor(canvasWidth / (circleRadius *2))} Fitting Y: {Math.floor(canvasHeight / (circleRadius *2))}
-              </div>
-              <div>
-                # of circles: 
-              </div>
-              <div>
-                Efficiency: (Area square/Area circles):
-              </div>
-            </Paper>
-          </Grid>
-        </Grid>
-        <Grid container spacing= {12} justify='center'>
-          <Canvas width={canvasWidth} height={canvasHeight} radius={circleRadius}/>
         </Grid>
       </div>
     </div>
