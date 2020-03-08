@@ -3,7 +3,7 @@ This project is a small "optimization" problem. The purpose is to punch holes in
 https://pbscoots.github.io/circlepunch/  
 The current implementation is a greedy approach that uses some algebraic properties. The interesting stuff is in src/worker.js  
 
-Basically it takes a pattern of 4 circles and sweeps through two angles in predefined increments. It then calculates how many circles could fit the page at each step assuming that pattern is copied as many times as fits horizontally and vertically. If it finds a configuration that stores more than before, it pushes it into an array. There is then a list of each time it found a better configuration.  
+The Geometric Sweep option performs an exhaustive search and takes a pattern of 4 circles and sweeps through two angles in predefined increments. It then calculates how many circles could fit the page at each step assuming that pattern is copied as many times as fits horizontally and vertically. If it finds a configuration that stores more than before, it pushes it into an array. There is then a list of each time it found a better configuration.  
 ![Basic Diagram](images/CirclePunchDiagram.png)  
 
 ## Future improvements 
